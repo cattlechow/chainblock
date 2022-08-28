@@ -4,7 +4,7 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
-const hre = require("hardhat")
+import hre from "hardhat"
 
 async function main() {
     const simpleStorageFactory = await hre.ethers.getContractFactory(
@@ -30,14 +30,14 @@ async function main() {
 }
 
 // 合约部署后自动验证
-const verify = async (contractsAddress, args) => {
+const verify = async (contractsAddress: string, args: any[]) => {
     console.log("Verifying contract..")
     try {
         await hre.run("verify:verify", {
             address: contractsAddress,
             constructorArguments: args,
         })
-    } catch (e) {
+    } catch (e: any) {
         if (e.message.toLowerCase().includes("already verified")) {
             console.log("Already verified")
         } else {
